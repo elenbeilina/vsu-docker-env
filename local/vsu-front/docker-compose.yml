@@ -1,0 +1,25 @@
+version: "3.3"
+
+services:
+
+  vsu-service:
+    image: elenbeilina/vsu-service:vsu-latest
+    container_name: vsu-service
+    ports:
+      - 8080:8080
+    restart: always
+    network_mode: host
+
+  #-------------------------------------------
+
+  postgres-database:
+    image: postgres:12
+    restart: always
+    container_name: postgres-database
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: test_db
+      POSTGRES_PASSWORD: pas
