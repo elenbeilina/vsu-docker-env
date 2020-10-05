@@ -18,9 +18,11 @@ services:
   #-------------------------------------------
 
   vsu-service:
-    image: elenbeilina/vsu-service:vsu-latest
+    image: elenbeilina/vsu-service:1
     container_name: vsu-service
     ports:
-      - 8080:8080
+      - 8050:8050
     restart: always
     network_mode: host
+    depends_on:
+      - postgres-database
