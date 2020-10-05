@@ -1,15 +1,16 @@
-version: "3"
+version: "3.3"
 
 services:
 
   postgres-database:
     image: postgres:12
     restart: always
+    network_mode: host
     container_name: postgres-database
     ports:
       - 5432:5432
     volumes:
       - ./data/pg_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: test_db
+      POSTGRES_USER: vsu
       POSTGRES_PASSWORD: pas
