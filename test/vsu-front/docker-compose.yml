@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+
+  vsu-service:
+    image: akapranchikova/vsu-front:latest
+    container_name: vsu-service
+    ports:
+      - 4200:4200
+    restart: always
+    network_mode: host
