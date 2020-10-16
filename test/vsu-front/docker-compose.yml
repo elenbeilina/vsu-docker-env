@@ -2,7 +2,7 @@ version: "2.1"
 services:
   web:
     container_name: "vsu-front"
-    image: "angular-app:latest"
+    image: "akapranchikova/vsu-front:latest"
     ports:
       - "80:80"
     restart: always
