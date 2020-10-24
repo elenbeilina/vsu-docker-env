@@ -1,11 +1,10 @@
-version: "3.3"
-
+version: "2.1"
 services:
-
-  vsu-service:
-    image: akapranchikova/vsu-front:latest
-    container_name: vsu-service
+  web:
+    container_name: "vsu-front"
+    image: "akapranchikova/vsu-front:latest"
     ports:
-      - 4200:4200
+      - "80:80"
     restart: always
-    network_mode: host
+    environment:
+      PROXY_PASS: "http://0.0.0.0"
