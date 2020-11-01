@@ -4,7 +4,6 @@ services:
   pg-db:
     image: postgres:12
     restart: always
-    network_mode: host
     container_name: pg-db
     ports:
       - 5432:5432
@@ -13,6 +12,8 @@ services:
     environment:
       POSTGRES_USER: vsu
       POSTGRES_PASSWORD: pas
+    networks:
+      - vsu-net
 
   vsu-service:
     image: elenbeilina/vsu-service:1
@@ -22,10 +23,11 @@ services:
     restart: always
     environment:
       - app_port=8050
-      - server_postgres=localhost
-    network_mode: host
+      - server_postgres=pg-db
     depends_on:
       - pg-db
+    networks:
+      - vsu-net
 
   web:
     container_name: vsu-front
@@ -35,3 +37,8 @@ services:
     restart: always
     environment:
       PROXY_PASS: http://0.0.0.0
+    networks:
+      - vsu-net
+
+networks:
+  vsu-net:
