@@ -8,4 +8,7 @@ services:
     ports:
       - 8050:8050
     restart: always
+    environment:
+      - app_port=8050
+      - server_postgres=localhost
     network_mode: host

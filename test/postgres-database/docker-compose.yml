@@ -2,11 +2,11 @@ version: "3.3"
 
 services:
 
-  postgres-database:
+  pg-db:
     image: postgres:12
     restart: always
     network_mode: host
-    container_name: postgres-database
+    container_name: pg-db
     ports:
       - 5432:5432
     volumes:

@@ -7,7 +7,7 @@ services:
     container_name: pg-db
     privileged: true
     ports:
-      - 0.0.0.0:5432:5432
+      - 0.0.0.0:5432:0.0.0.0:5432
     labels:
       - works.weave.role=system
     volumes:
@@ -27,6 +27,9 @@ services:
     privileged: true
     ports:
       - 0.0.0.0:8050:8050
+    environment:
+      - app_port=8050
+      - server_postgres=localhost
     labels:
       - works.weave.role=system
     volumes:
