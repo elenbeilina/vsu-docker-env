@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  pg-db:
+    image: postgres:12
+    restart: always
+    network_mode: host
+    container_name: pg-db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: vsu
+      POSTGRES_PASSWORD: pas
+
+  vsu-service:
+    image: elenbeilina/vsu-service:1
+    container_name: vsu-service
+    ports:
+      - 8050:8050
+    restart: always
+    environment:
+      - app_port=8050
+      - server_postgres=localhost
+    network_mode: host
+    depends_on:
+      - pg-db
+
+  web:
+    container_name: vsu-front
+    image: akapranchikova/vsu-front:latest
+    ports:
+      - 80:80
+    restart: always
+    environment:
+      PROXY_PASS: http://0.0.0.0
