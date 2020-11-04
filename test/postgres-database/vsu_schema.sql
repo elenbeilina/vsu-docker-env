@@ -11,20 +11,6 @@ create table vsu.answer
 create unique index answer_id_uindex
     on vsu.answer (id);
 
-create table vsu.social_media
-(
-    id        bigint not null
-        constraint social_media_pk
-            primary key,
-    facebook  varchar,
-    instagram varchar,
-    twitter   varchar,
-    vk        varchar
-);
-
-create unique index social_media_id_uindex
-    on vsu.social_media (id);
-
 create table vsu.department
 (
     id          bigint  not null
@@ -33,18 +19,19 @@ create table vsu.department
     name        varchar not null,
     description varchar,
     picture     varchar,
-    social_id   bigint
-        constraint department_social_media_id_fk
-            references vsu.social_media
+    facebook  varchar,
+    instagram varchar,
+    twitter   varchar,
+    vk        varchar
 );
 
-INSERT INTO vsu.department (id, name, description, picture, social_id) VALUES (1, 'Компьютерных Наук', '', '', null);
-INSERT INTO vsu.department (id, name, description, picture, social_id) VALUES (2, 'Прикладной математики и информатики', '', '', null);
-INSERT INTO vsu.department (id, name, description, picture, social_id) VALUES (3, 'ФИПСИ', '', '', null);
-INSERT INTO vsu.department (id, name, description, picture, social_id) VALUES (4, 'Экономический', '', '', null);
-INSERT INTO vsu.department (id, name, description, picture, social_id) VALUES (5, 'Юридический', '', '', null);
-INSERT INTO vsu.department (id, name, description, picture, social_id) VALUES (6, 'Биологический', '', '', null);
-INSERT INTO vsu.department (id, name, description, picture, social_id) VALUES (7, 'Геологический', '', '', null);
+INSERT INTO vsu.department (id, name, description, picture) VALUES (1, 'Компьютерных Наук', '', '');
+INSERT INTO vsu.department (id, name, description, picture) VALUES (2, 'Прикладной математики и информатики', '', '');
+INSERT INTO vsu.department (id, name, description, picture) VALUES (3, 'ФИПСИ', '', '');
+INSERT INTO vsu.department (id, name, description, picture) VALUES (4, 'Экономический', '', '');
+INSERT INTO vsu.department (id, name, description, picture) VALUES (5, 'Юридический', '', '');
+INSERT INTO vsu.department (id, name, description, picture) VALUES (6, 'Биологический', '', '');
+INSERT INTO vsu.department (id, name, description, picture) VALUES (7, 'Геологический', '', '');
 
 create table vsu.users
 (
@@ -64,20 +51,21 @@ create table vsu.users
     description     varchar,
     birthday        timestamp with time zone,
     picture         varchar,
-    social_id       bigint
-        constraint users_social_media_id_fk
-            references vsu.social_media
+    facebook  varchar,
+    instagram varchar,
+    twitter   varchar,
+    vk        varchar
 );
 
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (2, 2, '80809090', 1, 'dataart', 'DataArt', ' ', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'DataArt — международная сеть компаний, которые проектируют, разрабатывают, модернизирует и поддерживают IT-решения. В 17 центрах продаж и разработки DataArt работают более 2200 специалистов.', null, 'https://upload.wikimedia.org/wikipedia/commons/5/55/DataArt%27s_Logo.png', null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (4, 2, '80809090', 1, 'lukoil', 'ЛУКОЙЛ', ' ', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'ПАО «Лукойл» — российская нефтяная компания. Официальное название — ПАО «Нефтяная компания „Лукойл“» Наименование компании происходит от первых букв названий городов нефтяников и слова «ойл». Вторая после «Газпрома» по объёмам выручки компания в России.', null, 'https://www.polinaft.com/images/lukoil.png', null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (9, 1, '80809090', 1, 'user4', 'Анатолий', 'Сидорчук', 3450, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'У меня свой путь к счастью... И я не люблю, когда мне навязывают чужие маршруты... ПОВЕРЬТЕ, за руль своей жизни я не посажу никого!', null, 'http://advicewoman.ru/wp-content/uploads/2017/05/kakim-dolzhen-byt-nastoyashiy-muzhchina.jpg', null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (8, 1, '80809090', 1, 'user3', 'Александр', 'Смирнов', 545, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Я очень богат! У меня два видящих глаза, рабочие руки и ноги, да и слышу вроде неплохо. Я вижу рассвет, закат, чувствую, живу моментом. Радуйтесь мелочам.', null, 'http://kak-bog.ru/sites/default/files/imagecache/height_200/brutalnyy_muzhchina.jpg', null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (1, 0, '80809090', 1, 'admin', '', ' Administrator', 100000, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Администратор сервиса VSU Tournaments', null, 'http://www.monteirolobato.edu.br/public/assets/admin/images/avatars/avatar4_big.png', null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (5, 2, '80809090', 1, 'inline', 'Ин Лайн', 'Груп', 156, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Инлайн', null, 'http://www.inlinegroup.ru/img/logo/logo.png', null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (3, 2, '', 1, 'netcrk', ' ', 'NetCracker', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Netcracker Technology — дочерняя компания корпорации NEC, специализирующаяся на создании, внедрении и сопровождении систем эксплуатационной поддержки, систем поддержки бизнеса, а также SDN/NFV-решений для операторов связи, крупных предприятий и государственных учреждений.', null, 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c2/Netcracker_Technology_logo.svg/1280px-Netcracker_Technology_logo.svg.png', null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (12, 1, '1232123231', 1, 'y1', 'йо', 'ой', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG', 'йо', null, null, null);
-INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture, social_id) VALUES (6, 1, '808090902', 2, 'al_kachino', 'Алиса', 'Капранчик', 1000, '$2a$10$sSqZgvQ1QdWSA0/zFU8Xh.s2XF5UIKDTdph3vZrhoODXkQ3ZMOM1.', 'Всем привет', null, 'https://pic.sport.ua/images/news/0/8/112/orig_342444.jpg', null);
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (2, 2, '80809090', 1, 'dataart', 'DataArt', ' ', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'DataArt — международная сеть компаний, которые проектируют, разрабатывают, модернизирует и поддерживают IT-решения. В 17 центрах продаж и разработки DataArt работают более 2200 специалистов.', null, 'https://upload.wikimedia.org/wikipedia/commons/5/55/DataArt%27s_Logo.png');
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (4, 2, '80809090', 1, 'lukoil', 'ЛУКОЙЛ', ' ', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'ПАО «Лукойл» — российская нефтяная компания. Официальное название — ПАО «Нефтяная компания „Лукойл“» Наименование компании происходит от первых букв названий городов нефтяников и слова «ойл». Вторая после «Газпрома» по объёмам выручки компания в России.', null, 'https://www.polinaft.com/images/lukoil.png');
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (9, 1, '80809090', 1, 'user4', 'Анатолий', 'Сидорчук', 3450, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'У меня свой путь к счастью... И я не люблю, когда мне навязывают чужие маршруты... ПОВЕРЬТЕ, за руль своей жизни я не посажу никого!', null, 'http://advicewoman.ru/wp-content/uploads/2017/05/kakim-dolzhen-byt-nastoyashiy-muzhchina.jpg');
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (8, 1, '80809090', 1, 'user3', 'Александр', 'Смирнов', 545, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Я очень богат! У меня два видящих глаза, рабочие руки и ноги, да и слышу вроде неплохо. Я вижу рассвет, закат, чувствую, живу моментом. Радуйтесь мелочам.', null, 'http://kak-bog.ru/sites/default/files/imagecache/height_200/brutalnyy_muzhchina.jpg');
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (1, 0, '80809090', 1, 'admin', '', ' Administrator', 100000, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Администратор сервиса VSU Tournaments', null, 'http://www.monteirolobato.edu.br/public/assets/admin/images/avatars/avatar4_big.png');
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (5, 2, '80809090', 1, 'inline', 'Ин Лайн', 'Груп', 156, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Инлайн', null, 'http://www.inlinegroup.ru/img/logo/logo.png');
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (3, 2, '', 1, 'netcrk', ' ', 'NetCracker', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG.', 'Netcracker Technology — дочерняя компания корпорации NEC, специализирующаяся на создании, внедрении и сопровождении систем эксплуатационной поддержки, систем поддержки бизнеса, а также SDN/NFV-решений для операторов связи, крупных предприятий и государственных учреждений.', null, 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c2/Netcracker_Technology_logo.svg/1280px-Netcracker_Technology_logo.svg.png');
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (12, 1, '1232123231', 1, 'y1', 'йо', 'ой', 0, '$2a$10$S6y6fMD5z.d69WWvRcNZJux6CHOh/9PeatgZAQWxf8eVtZxNojbG', 'йо', null, null);
+INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, first_name, second_name, rating, password, description, birthday, picture) VALUES (6, 1, '808090902', 2, 'al_kachino', 'Алиса', 'Капранчик', 1000, '$2a$10$sSqZgvQ1QdWSA0/zFU8Xh.s2XF5UIKDTdph3vZrhoODXkQ3ZMOM1.', 'Всем привет', null, 'https://pic.sport.ua/images/news/0/8/112/orig_342444.jpg');
 
 create table vsu.news
 (
