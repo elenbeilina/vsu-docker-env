@@ -19,10 +19,10 @@ services:
     image: elenbeilina/vsu-service:1
     container_name: vsu-service
     ports:
-      - 8050:8050
+      - 8080:8080
     restart: always
     environment:
-      - app_port=8050
+      - app_port=8080
       - server_postgres=pg-db
     depends_on:
       - pg-db

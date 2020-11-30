@@ -1,40 +1,33 @@
 version: "3.3"
 
 services:
-
   pg-db:
     image: postgres:12
+    restart: always
     container_name: pg-db
-    privileged: true
     ports:
-      - 0.0.0.0:5432:5432
-    labels:
-      - works.weave.role=system
+      - 5432:5432
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
-      - /data/pg_data:/var/lib/postgresql/data
+      - ./data/pg_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: vsu
       POSTGRES_PASSWORD: pas
-    command:
-      - --probe.docker=true
-
-  #-------------------------------------------
+    networks:
+      - vsu-net
 
   vsu-service:
     image: elenbeilina/vsu-service:1
     container_name: vsu-service
-    privileged: true
     ports:
-      - 0.0.0.0:8050:8050
+      - 8080:8080
+    restart: always
     environment:
-      - app_port=8050
-      - server_postgres=localhost
-    labels:
-      - works.weave.role=system
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
-    command:
-      - --probe.docker=true
+      - app_port=8080
+      - server_postgres=pg-db
     depends_on:
       - pg-db
+    networks:
+      - vsu-net
+
+networks:
+  vsu-net:
