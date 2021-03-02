@@ -1,6 +1,7 @@
 version: "3.3"
 
 services:
+
   pg-db:
     image: postgres:12
     restart: always
@@ -12,20 +13,6 @@ services:
     environment:
       POSTGRES_USER: vsu
       POSTGRES_PASSWORD: pas
-    networks:
-      - vsu-net
-
-  vsu-service:
-    image: elenbeilina/vsu-service:latest
-    container_name: vsu-service
-    ports:
-      - 8080:8080
-    restart: always
-    environment:
-      - app_port=8080
-      - server_postgres=pg-db
-    depends_on:
-      - pg-db
     networks:
       - vsu-net
 

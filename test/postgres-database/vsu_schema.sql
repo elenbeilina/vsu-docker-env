@@ -136,9 +136,6 @@ create table vsu.tournament
     sponsor_id    bigint                   not null
         constraint "TOURNAMENTS_fk0"
             references vsu.users,
-    department_id bigint                   not null
-        constraint "TOURNAMENTS_fk2"
-            references vsu.department,
     winner_id     bigint
         constraint "TOURNAMENTS_fk1"
             references vsu.users,
@@ -149,4 +146,19 @@ create table vsu.tournament
     prize_id      integer
         constraint tournament___fk3
             references vsu.prizes
+);
+
+create unique index tournament_id_uindex
+    on vsu.tournament (id);
+
+create table vsu.participants
+(
+    tournament_id bigint not null
+        constraint partisipants_tournament___fk
+            references vsu.tournament,
+    user_id       bigint not null
+        constraint partisipants_users_id_fk
+            references vsu.users,
+    grade         integer,
+    task          varchar
 );
