@@ -2,7 +2,7 @@ create schema if not exists vsu;
 
 create table vsu.answer
 (
-    id          bigint not null
+    id          bigint
         constraint answer_pk
             primary key,
     description varchar
@@ -13,10 +13,10 @@ create unique index answer_id_uindex
 
 create table vsu.department
 (
-    id          bigint  not null
+    id          bigint
         constraint department_pkey
             primary key,
-    name        varchar not null,
+    name        varchar,
     description varchar,
     picture     varchar,
     facebook  varchar,
@@ -35,19 +35,19 @@ INSERT INTO vsu.department (id, name, description, picture) VALUES (7, 'Геол
 
 create table vsu.users
 (
-    id              bigint  not null
+    id              bigint
         constraint users_pkey
             primary key,
-    role_id         bigint  not null,
-    student_book_id varchar not null,
-    department_id   bigint  not null
+    role_id         bigint ,
+    student_book_id varchar,
+    department_id   bigint
         constraint users_department__fk
             references vsu.department,
-    username        varchar not null,
-    first_name      varchar not null,
-    second_name     varchar not null,
-    rating          bigint  not null,
-    password        varchar not null,
+    username        varchar,
+    first_name      varchar,
+    second_name     varchar,
+    rating          bigint ,
+    password        varchar,
     description     varchar,
     birthday        timestamp with time zone,
     picture         varchar,
@@ -69,14 +69,14 @@ INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, fi
 
 create table vsu.news
 (
-    id           bigint  not null
+    id           bigint
         constraint news_pk
             primary key,
-    owner        bigint  not null
+    owner        bigint
         constraint news_users__fk
             references vsu.users,
-    title        varchar not null,
-    description  varchar not null,
+    title        varchar,
+    description  varchar,
     date_created timestamp with time zone
 );
 
@@ -92,7 +92,7 @@ INSERT INTO vsu.news (id, owner, title, description, date_created) VALUES (1, 1,
 
 create table vsu.prizes
 (
-    id          integer not null
+    id          integer
         constraint prizes_pk
             primary key,
     owner       integer,
@@ -106,20 +106,20 @@ create unique index prizes_id_uindex
 
 create table vsu.partisipants
 (
-    tournament_id bigint not null,
-    user_id       bigint not null
+    tournament_id bigint,
+    user_id       bigint
 );
 
 create table vsu.question
 (
-    id          bigint                   not null
+    id          bigint
         constraint question_pk
             primary key,
-    owner_id    bigint                   not null
+    owner_id    bigint
         constraint question_users__fk
             references vsu.users,
-    start_date  timestamp with time zone not null,
-    description varchar                  not null,
+    start_date  timestamp with time zone,
+    description varchar                 ,
     answer_id   bigint
         constraint question_answer__fk
             references vsu.answer
@@ -130,18 +130,16 @@ create unique index question_id_uindex
 
 create table vsu.tournament
 (
-    id            bigint                   not null
-        constraint tournament_pk
+    id            bigint
             primary key,
-    sponsor_id    bigint                   not null
-        constraint "TOURNAMENTS_fk0"
+    sponsor_id    bigint
             references vsu.users,
     winner_id     bigint
         constraint "TOURNAMENTS_fk1"
             references vsu.users,
-    start_date    timestamp with time zone not null,
-    end_date      timestamp with time zone not null,
-    status        bigint                   not null,
+    start_date    timestamp with time zone,
+    end_date      timestamp with time zone,
+    status        bigint                  ,
     label         bigint,
     prize_id      integer
         constraint tournament___fk3
@@ -153,10 +151,10 @@ create unique index tournament_id_uindex
 
 create table vsu.participants
 (
-    tournament_id bigint not null
+    tournament_id bigint
         constraint partisipants_tournament___fk
             references vsu.tournament,
-    user_id       bigint not null
+    user_id       bigint
         constraint partisipants_users_id_fk
             references vsu.users,
     grade         integer,
