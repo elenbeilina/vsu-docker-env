@@ -104,12 +104,6 @@ create table vsu.prizes
 create unique index prizes_id_uindex
     on vsu.prizes (id);
 
-create table vsu.partisipants
-(
-    tournament_id bigint,
-    user_id       bigint
-);
-
 create table vsu.question
 (
     id          bigint
