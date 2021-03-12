@@ -42,7 +42,7 @@ create table vsu.users
     role_id         bigint,
     student_book_id varchar,
     department_id   bigint
-        constraint users_department__fk
+        constraint users_department_fk
             references vsu.department,
     username        varchar,
     first_name      varchar,
@@ -74,7 +74,7 @@ create table vsu.news
         constraint news_pk
             primary key,
     owner        bigint
-        constraint news_users__fk
+        constraint news_users_fk
             references vsu.users,
     title        varchar,
     description  varchar,
@@ -97,7 +97,7 @@ create table vsu.prizes
         constraint prizes_pk
             primary key,
     owner       integer
-        constraint fkbbxfv087jc87i6k6xk5wgqdwd
+        constraint prizes_owner_id_fk
             references vsu.users,
     name        varchar,
     picture     varchar,
@@ -116,12 +116,12 @@ create table vsu.question
         constraint question_pk
             primary key,
     owner_id    bigint
-        constraint question_users__fk
+        constraint question_users_fk
             references vsu.users,
     start_date  timestamp with time zone,
     description varchar,
     answer_id   bigint
-        constraint question_answer__fk
+        constraint question_answer_fk
             references vsu.answer
 );
 
@@ -136,16 +136,16 @@ create table vsu.tournament
         constraint tournament_pkey
             primary key,
     sponsor_id bigint
-        constraint tournament_sponsor_id_fkey
+        constraint tournament_sponsor_id_fk
             references vsu.users,
     winner_id  bigint
-        constraint "TOURNAMENTS_fk1"
+        constraint tournament_winner_id_fk
             references vsu.users,
     start_date timestamp with time zone,
     end_date   timestamp with time zone,
     status     bigint,
     prize_id   integer
-        constraint tournament___fk3
+        constraint tournament_prize_fk
             references vsu.prizes,
     name       varchar(255),
     task       varchar(255)
@@ -161,10 +161,10 @@ INSERT INTO vsu.tournament (id, sponsor_id, winner_id, start_date, end_date, sta
 create table vsu.participants
 (
     tournament_id serial not null
-        constraint partisipants_tournament___fk
+        constraint participants_tournament_fk
             references vsu.tournament,
     user_id       bigint
-        constraint partisipants_users_id_fk
+        constraint participants_users_id_fk
             references vsu.users,
     grade         integer,
     task          varchar
@@ -176,9 +176,6 @@ INSERT INTO vsu.participants (tournament_id, user_id, grade, task) VALUES (3, 8,
 
 create table vsu.rating
 (
-    id         serial not null
-        constraint rating_pk
-            primary key,
     user_id    bigint
         constraint rating__user_fk
             references vsu.users,
@@ -190,8 +187,8 @@ create table vsu.rating
 
 create table vsu.technology
 (
-    tournament_id serial not null
-        constraint technology_tournament__fk
+    tournament_id bigint not null
+        constraint technology_tournament_fk
             references vsu.tournament,
     technology    integer,
     percent       integer
