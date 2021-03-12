@@ -2,7 +2,7 @@ create schema if not exists vsu;
 
 create table vsu.answer
 (
-    id          bigint
+    id          serial not null
         constraint answer_pk
             primary key,
     description varchar
@@ -14,7 +14,7 @@ create unique index answer_id_uindex
 
 create table vsu.department
 (
-    id          bigint
+    id          serial not null
         constraint department_pkey
             primary key,
     name        varchar,
@@ -36,7 +36,7 @@ INSERT INTO vsu.department (id, name, description, picture) VALUES (7, 'Геол
 
 create table vsu.users
 (
-    id              bigint not null
+    id              serial not null
         constraint users_pkey
             primary key,
     role_id         bigint,
@@ -70,7 +70,7 @@ INSERT INTO vsu.users (id, role_id, student_book_id, department_id, username, fi
 
 create table vsu.news
 (
-    id           bigint
+    id           serial not null
         constraint news_pk
             primary key,
     owner        bigint
@@ -93,7 +93,7 @@ INSERT INTO vsu.news (id, owner, title, description, date_created) VALUES (1, 1,
 
 create table vsu.prizes
 (
-    id          integer not null
+    id          serial not null
         constraint prizes_pk
             primary key,
     owner       integer
@@ -112,7 +112,7 @@ INSERT INTO vsu.prizes (id, owner, name, picture, description) VALUES (2, null, 
 
 create table vsu.question
 (
-    id          bigint not null
+    id          serial not null
         constraint question_pk
             primary key,
     owner_id    bigint
@@ -132,7 +132,7 @@ INSERT INTO vsu.question (id, owner_id, start_date, description, answer_id) VALU
 
 create table vsu.tournament
 (
-    id         bigint not null
+    id         serial not null
         constraint tournament_pkey
             primary key,
     sponsor_id bigint
@@ -160,7 +160,7 @@ INSERT INTO vsu.tournament (id, sponsor_id, winner_id, start_date, end_date, sta
 
 create table vsu.participants
 (
-    tournament_id bigint
+    tournament_id serial not null
         constraint partisipants_tournament___fk
             references vsu.tournament,
     user_id       bigint
@@ -190,7 +190,7 @@ create table vsu.rating
 
 create table vsu.technology
 (
-    tournament_id bigint
+    tournament_id serial not null
         constraint technology_tournament__fk
             references vsu.tournament,
     technology    integer,

@@ -16,7 +16,7 @@ services:
       - vsu-net
 
   vsu-service:
-    image: elenbeilina/vsu-service:1
+    image: elenbeilina/vsu-service:latest
     container_name: vsu-service
     ports:
       - 8080:8080
