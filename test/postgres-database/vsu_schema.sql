@@ -2,15 +2,13 @@ create schema if not exists vsu;
 
 create table vsu.answer
 (
-    id          serial not null
-        constraint answer_pk
-            primary key,
+    question_id bigint
+        constraint answer_question_fk
+            references vsu.question,
     description varchar
 );
-INSERT INTO vsu.answer (id, description) VALUES (1, 'test');
 
-create unique index answer_id_uindex
-    on vsu.answer (id);
+INSERT INTO vsu.answer (question_id, description) VALUES (1, 'test');
 
 create table vsu.department
 (
@@ -119,16 +117,13 @@ create table vsu.question
         constraint question_users_fk
             references vsu.users,
     start_date  timestamp with time zone,
-    description varchar,
-    answer_id   bigint
-        constraint question_answer_fk
-            references vsu.answer
+    description varchar
 );
 
 create unique index question_id_uindex
     on vsu.question (id);
 
-INSERT INTO vsu.question (id, owner_id, start_date, description, answer_id) VALUES (1, 8, '2021-03-06 21:00:00.000000', 'string', 1);
+INSERT INTO vsu.question (id, owner_id, start_date, description) VALUES (1, 8, '2021-03-06 21:00:00.000000', 'string');
 
 create table vsu.tournament
 (
