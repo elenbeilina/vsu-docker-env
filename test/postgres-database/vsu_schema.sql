@@ -1,15 +1,5 @@
 create schema if not exists vsu;
 
-create table vsu.answer
-(
-    question_id bigint
-        constraint answer_question_fk
-            references vsu.question,
-    description varchar
-);
-
-INSERT INTO vsu.answer (question_id, description) VALUES (1, 'test');
-
 create table vsu.department
 (
     id          serial not null
@@ -124,6 +114,16 @@ create unique index question_id_uindex
     on vsu.question (id);
 
 INSERT INTO vsu.question (id, owner_id, start_date, description) VALUES (1, 8, '2021-03-06 21:00:00.000000', 'string');
+
+create table vsu.answer
+(
+    question_id bigint
+        constraint answer_question_fk
+            references vsu.question,
+    description varchar
+);
+
+INSERT INTO vsu.answer (question_id, description) VALUES (1, 'test');
 
 create table vsu.tournament
 (
