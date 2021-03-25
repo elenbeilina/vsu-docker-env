@@ -36,9 +36,7 @@ services:
       - 80:80
     restart: always
     environment:
-      PROXY_PASS: http://0.0.0.0
-      NGINX_HOST: vsu-service
-      NGINX_PORT: 8080
+      api: vsu-service:8080
     networks:
       - vsu-net
 
